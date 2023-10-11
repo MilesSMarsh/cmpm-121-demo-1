@@ -16,7 +16,23 @@ const button = document.getElementById("btn");
 
 button?.addEventListener("click", function handleClick(event) {
   counter += 1;
+  head.innerHTML = "Amount of Bones: " + Math.round(counter).toString();
   console.log(counter);
-
-  head.innerHTML = "Amount of Bones: " + counter.toString();
+  console.log(event);
 });
+
+let currentTime: number = 0;
+let pastTime: number = 0;
+
+window.requestAnimationFrame(increment);
+function increment() {
+  currentTime = Date.now();
+  console.log(currentTime - pastTime);
+  counter += 1/ (5*(currentTime - pastTime));
+  pastTime = currentTime;
+
+  head.innerHTML = "Amount of Bones: " + Math.round(counter).toString();
+
+  window.requestAnimationFrame(increment);
+
+}
