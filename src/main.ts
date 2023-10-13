@@ -10,6 +10,7 @@ let partyCounter = 0;
 let currentTime: number = 0;
 let pastTime: number = 0;
 let multiplier: number = 0;
+let partyCost: number = 10;
 
 const head = document.createElement("h1");
 const body = document.createElement("b1");
@@ -28,8 +29,7 @@ skeletonCount.innerHTML = "Amount of Skeletons: " + skeletonCounter.toString();
 
 const partyCount: HTMLDivElement = document.querySelector("#party")!;
 partyCount.append(body);
-partyCount.innerHTML =
-  "skeletons in your party: " + (partyCounter * 10).toString();
+partyCount.innerHTML = "skeletons in your party: " + partyCounter.toString();
 
 const rate: HTMLDivElement = document.querySelector("#rate")!;
 rate.append(body);
@@ -57,8 +57,8 @@ upgradeHandButton?.addEventListener("click", function handleClick(event) {
 const upgradeSkeletonButton = document.getElementById("btn3");
 
 upgradeSkeletonButton?.addEventListener("click", function handleClick(event) {
-  if (counter >= 206) {
-    counter -= 206;
+  if (counter >= 2) {
+    counter -= 2;
     skeletonCounter += 1;
     multiplier += 2;
     console.log(event);
@@ -70,8 +70,11 @@ const upgradePartyButton = document.getElementById("btn4");
 upgradePartyButton?.addEventListener("click", function handleClick(event) {
   if (skeletonCounter >= 10) {
     skeletonCounter -= 10;
-    partyCounter += 1;
+    partyCounter += Math.round(partyCost);
     multiplier += 50;
+    partyCost *= 1.15;
+    document.querySelector("#btn4")!.innerHTML =
+      Math.round(partyCost) + " 💀's for a party";
     console.log(event);
   }
 });
@@ -92,6 +95,5 @@ function updateText() {
   handCount.innerHTML = "Amount of hands: " + handCounter.toString();
   skeletonCount.innerHTML =
     "Amount of Skeletons: " + skeletonCounter.toString();
-  partyCount.innerHTML =
-    "skeletons in your party: " + (partyCounter * 10).toString();
+  partyCount.innerHTML = "skeletons in your party: " + partyCounter.toString();
 }
