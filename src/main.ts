@@ -17,8 +17,6 @@ const availableItems: Item[] = [
   { name: "factory", cost: 100, rate: 5, costType: "party" },
 ];
 
-let test: string = availableItems[0].name;
-console.log(test);
 let counter: number = 0;
 let skeletonCounter = 0;
 let handCounter = 0;
