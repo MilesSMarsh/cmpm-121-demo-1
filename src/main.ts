@@ -13,7 +13,7 @@ let multiplier: number = 0;
 let partyCost: number = 10;
 let skeletonRate: number = 0;
 let factoryCount: number = 0;
-let factorySkeletons: number = 0;
+// let factorySkeletons: number = 0;
 let factoryCost: number = 100;
 
 const head = document.createElement("h1");
@@ -31,15 +31,14 @@ const skeletonCount: HTMLDivElement = document.querySelector("#skeletons")!;
 skeletonCount.append(body);
 skeletonCount.innerHTML = "Amount of Skeletons: " + skeletonCounter.toString();
 
-
-const skeletonRateCount: HTMLDivElement = document.querySelector("#skeletonRate")!;
+const skeletonRateCount: HTMLDivElement =
+  document.querySelector("#skeletonRate")!;
 skeletonRateCount.append(body);
 skeletonRateCount.innerHTML = "Skeletons/S: " + skeletonRate.toString();
 
 const partyCount: HTMLDivElement = document.querySelector("#party")!;
 partyCount.append(body);
 partyCount.innerHTML = "💀's in a party: " + partyCounter.toString();
-
 
 const factories: HTMLDivElement = document.querySelector("#factory")!;
 factories.append(body);
@@ -85,7 +84,8 @@ upgradePartyButton?.addEventListener("click", function handleClick(event) {
     partyCounter += Math.round(partyCost);
     multiplier += 50;
     partyCost *= 1.15;
-    document.querySelector("#btn4")!.innerHTML = Math.round(partyCost) + " 💀's for a party";
+    document.querySelector("#btn4")!.innerHTML =
+      Math.round(partyCost) + " 💀's for a party";
     console.log(event);
   }
 });
@@ -95,11 +95,12 @@ const factoryButton = document.getElementById("btn5");
 factoryButton?.addEventListener("click", function handleClick(event) {
   if (partyCounter >= factoryCost) {
     partyCounter -= factoryCost;
-    factorySkeletons += Math.round(factoryCost);
+    // factorySkeletons += Math.round(factoryCost);
     factoryCount += 1;
     skeletonRate += 5;
     factoryCost *= 1.15;
-    document.querySelector("#btn5")!.innerHTML = Math.round(factoryCost) + " 💀's in a party for a factory";
+    document.querySelector("#btn5")!.innerHTML =
+      Math.round(factoryCost) + " 💀's in a party for a factory";
     console.log(event);
   }
 });
@@ -108,10 +109,10 @@ window.requestAnimationFrame(increment);
 function increment() {
   currentTime = Date.now();
   counter += multiplier / (5 * (currentTime - pastTime));
-  if(factoryCount > 0){
+  if (factoryCount > 0) {
     spawnSkeleton(skeletonRate);
   }
-  
+
   pastTime = currentTime;
   updateText();
 
@@ -122,13 +123,14 @@ function updateText() {
   rate.innerHTML = "Rate: " + multiplier.toFixed(1).toString();
   head.innerHTML = "Amount of Bones: " + Math.round(counter);
   handCount.innerHTML = "Amount of hands: " + handCounter.toString();
-  skeletonCount.innerHTML = "Amount of Skeletons: " + Math.round(skeletonCounter).toString();
+  skeletonCount.innerHTML =
+    "Amount of Skeletons: " + Math.round(skeletonCounter).toString();
   partyCount.innerHTML = "💀's in a party: " + Math.round(partyCounter);
   factories.innerHTML = "created: " + factoryCount.toString() + " Factories";
   skeletonRateCount.innerHTML = "Skeletons/S: " + skeletonRate.toString();
 }
 
-function spawnSkeleton(num: number){
+function spawnSkeleton(num: number) {
   counter -= num * 2;
   skeletonCounter += num * 1;
   multiplier += num * 2;
