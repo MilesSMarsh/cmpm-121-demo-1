@@ -3,6 +3,22 @@ import "./style.css";
 const gameName = "Miles Marsh";
 document.title = gameName;
 
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+  costType: string;
+}
+
+const availableItems: Item[] = [
+  { name: "hand", cost: 27, rate: 0.1, costType: "bone" },
+  { name: "skeleton", cost: 206, rate: 2, costType: "bone" },
+  { name: "party", cost: 10, rate: 50, costType: "skeleton" },
+  { name: "factory", cost: 100, rate: 5, costType: "party" },
+];
+
+let test: string = availableItems[0].name;
+console.log(test);
 let counter: number = 0;
 let skeletonCounter = 0;
 let handCounter = 0;
@@ -10,11 +26,8 @@ let partyCounter = 0;
 let currentTime: number = 0;
 let pastTime: number = 0;
 let multiplier: number = 0;
-let partyCost: number = 10;
 let skeletonRate: number = 0;
 let factoryCount: number = 0;
-// let factorySkeletons: number = 0;
-let factoryCost: number = 100;
 
 const head = document.createElement("h1");
 const body = document.createElement("b1");
@@ -59,9 +72,9 @@ button?.addEventListener("click", function handleClick(event) {
 const upgradeHandButton = document.getElementById("btn2");
 
 upgradeHandButton?.addEventListener("click", function handleClick(event) {
-  if (counter >= 27) {
-    counter -= 27;
-    multiplier += 0.1;
+  if (counter >= availableItems[0].cost) {
+    counter -= availableItems[0].cost;
+    multiplier += availableItems[0].rate;
     handCounter += 1;
     console.log(event);
   }
@@ -70,7 +83,7 @@ upgradeHandButton?.addEventListener("click", function handleClick(event) {
 const upgradeSkeletonButton = document.getElementById("btn3");
 
 upgradeSkeletonButton?.addEventListener("click", function handleClick(event) {
-  if (counter >= 2) {
+  if (counter >= availableItems[1].cost) {
     spawnSkeleton(1);
     console.log(event);
   }
@@ -79,13 +92,13 @@ upgradeSkeletonButton?.addEventListener("click", function handleClick(event) {
 const upgradePartyButton = document.getElementById("btn4");
 
 upgradePartyButton?.addEventListener("click", function handleClick(event) {
-  if (skeletonCounter >= partyCost) {
-    skeletonCounter -= partyCost;
-    partyCounter += Math.round(partyCost);
-    multiplier += 50;
-    partyCost *= 1.15;
+  if (skeletonCounter >= availableItems[2].cost) {
+    skeletonCounter -= availableItems[2].cost;
+    partyCounter += Math.round(availableItems[2].cost);
+    multiplier += availableItems[2].rate;
+    availableItems[2].cost *= 1.15;
     document.querySelector("#btn4")!.innerHTML =
-      Math.round(partyCost) + " 💀's for a party";
+      Math.round(availableItems[2].cost) + " 💀's for a party";
     console.log(event);
   }
 });
@@ -93,14 +106,14 @@ upgradePartyButton?.addEventListener("click", function handleClick(event) {
 const factoryButton = document.getElementById("btn5");
 
 factoryButton?.addEventListener("click", function handleClick(event) {
-  if (partyCounter >= factoryCost) {
-    partyCounter -= factoryCost;
+  if (partyCounter >= availableItems[3].cost) {
+    partyCounter -= availableItems[3].cost;
     // factorySkeletons += Math.round(factoryCost);
     factoryCount += 1;
-    skeletonRate += 5;
-    factoryCost *= 1.15;
+    skeletonRate += availableItems[3].rate;
+    availableItems[3].cost *= 1.15;
     document.querySelector("#btn5")!.innerHTML =
-      Math.round(factoryCost) + " 💀's in a party for a factory";
+      Math.round(availableItems[3].cost) + " 💀's in a party for a factory";
     console.log(event);
   }
 });
@@ -131,7 +144,7 @@ function updateText() {
 }
 
 function spawnSkeleton(num: number) {
-  counter -= num * 2;
-  skeletonCounter += num * 1;
-  multiplier += num * 2;
+  counter -= num * availableItems[1].cost;
+  skeletonCounter += num;
+  multiplier += num * availableItems[1].rate;
 }
