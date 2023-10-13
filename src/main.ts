@@ -40,6 +40,7 @@ const button = document.getElementById("btn");
 button?.addEventListener("click", function handleClick(event) {
   counter += 1;
   head.innerHTML = "Amount of Bones: " + Math.round(counter).toString();
+  console.log(event);
 });
 
 const upgradeHandButton = document.getElementById("btn2");
@@ -49,6 +50,7 @@ upgradeHandButton?.addEventListener("click", function handleClick(event) {
     counter -= 27;
     multiplier += 0.1;
     handCounter += 1;
+    console.log(event);
   }
 });
 
@@ -59,6 +61,7 @@ upgradeSkeletonButton?.addEventListener("click", function handleClick(event) {
     counter -= 206;
     skeletonCounter += 1;
     multiplier += 2;
+    console.log(event);
   }
 });
 
@@ -69,6 +72,7 @@ upgradePartyButton?.addEventListener("click", function handleClick(event) {
     skeletonCounter -= 10;
     partyCounter += 1;
     multiplier += 50;
+    console.log(event);
   }
 });
 
